@@ -7,12 +7,12 @@
 </head>
 <body>
 <script>
+    console.log("Задание №1");
     let apple = 10;
     alert(apple);
     console.log(apple);
-    // let condition = randomString();
-    // console.log('Good game is ' + condition);
 
+    console.log("Задание №2");
     let cel = 56;
     let str = '100';
     let boolic = true;
@@ -23,11 +23,76 @@
     console.log(str + boolic + cel);
     console.log(boolic + cel + str);
 
-    let mass = [];
-    for(let i=0; i<10; i++)
+    console.log("Задание №3");
+    let mass = new Array(10);
+    for(let i=0; i<mass.length; i++)
     {
-        //mass.push = randomInteger(-10, 10);
+        mass[i] = Math.floor(-10 + Math.random() * 25);
     }
+    console.log(mass);
+    mass = mass.filter((num) => num >= 0);
+    console.log(mass);
+
+    console.log("Задание №4");
+    function getRandomNum() {
+        return Math.floor(Math.random() * 100);
+    }
+    console.log(getRandomNum());
+    function mulMassOnNum(m, num) {
+        return m.map((a) => a * num);
+    }
+    let m = [2, 4, 8, 16, 32];
+    let num = 32;
+    console.log(mulMassOnNum(m, num));
+    let genRandomWord = function() {
+        let abc = 'abcdefghijklmnopqrstuvwxyz'
+        let word = "";
+
+        for (let i = 0; i < 5; i++) {
+            let randomI = Math.floor(Math.random() * abc.length);
+            word += abc[randomI];
+        }
+        return word;
+    }
+    console.log(genRandomWord());
+    
+    console.log("Задание №5");
+    let person = {};
+    person.firstName = 'Alex';
+    person.surname = 'Tsoi';
+    person.patronymic = 'Konstantinovich';
+    person.birthday = '02.05.2003';
+    person.hobby = 'Music';
+    person.group = 'A';
+
+    person.getInfo = function() {
+        let currentDate = new Date();
+        let birthdate = new Date(this.birthday);
+        let age = currentDate.getFullYear() - birthdate.getFullYear();
+        return `ФИО: ${this.surname} ${this.firstName} ${this.patronymic}
+            \nГод рождения: ${this.birthday}\nХобби: ${this.hobby}\nВозраст: ${age}`;
+    }
+    alert(person.getInfo());
+    console.log(person.getInfo());
+
+    let salaries = {
+        Daniel: 2000,
+        Jane: 3000,
+        Evgeniy: 2500,
+        Alexei: 3500,
+        Nikita: 4000,
+        Vyacheslav: 2800,
+        Michael: 3200,
+        Vladislav: 2700,
+        Ivan: 3800,
+        Sophia: 3100
+    };
+    console.log(salaries);
+    let totalSalary = 0;
+    for (let key in salaries) {
+        totalSalary += salaries[key];
+    }
+    console.log("Общая зарплата: " + totalSalary);
 </script>
 </body>
 </html>
