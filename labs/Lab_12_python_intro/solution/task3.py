@@ -1,28 +1,29 @@
 from collections import Counter
 
 def histogram(text):
+    char_count = Counter(text)
+    sorted_chars = sorted(char_count.keys())
+    max_count = max(char_count.values())
 
-    char_count = Counter(text) # Счетчик символов в тексте
-    sorted_chars = sorted(char_count.keys()) # Сортировка списка символов
-    max_count = max(char_count.values()) # Максимальное количество символов
+    first_non_empty_line = next(
+        (i for i in range(max_count, 0, -1) 
+            if any(char_count[char] >= i for char in sorted_chars 
+                if char not in (' ', '\n'))), 0)
 
-    # Вывод гистограммы
-    for i in range(max_count, 0, -1):
+    result = []
+
+    for i in range(first_non_empty_line, 0, -1):
+        row = ''
         for char in sorted_chars:
             if char not in (' ', '\n'):
-                if char_count[char] >= i:
-                    print('#', end='')
-                else:
-                    print(' ', end='')
-        print()
+                row += '#' if char_count[char] >= i else ' '
+        result.append(row)
 
-    # Вывод символов под столбиками
-    for char in sorted_chars:
-        if char not in (' ', '\n'):
-            print(char, end='')
+    characters = ''.join(char for char in sorted_chars if char not in (' ', '\n'))
+
+    return result, characters
 
 if __name__ == "__main__":
-    # Чтение входных данных из файла input.txt
     try:
         with open("input3.txt", "r") as file:
             encrypted_text = file.read()
@@ -30,5 +31,11 @@ if __name__ == "__main__":
         print("Файл input.txt не найден.")
         exit()
 
-    # Вывод результата
-    histogram(encrypted_text)
+    result, characters = histogram(encrypted_text)
+
+    # Вывод гистограммы
+    for row in result:
+        print(row)
+
+    # Вывод символов под столбиками
+    print(characters)
